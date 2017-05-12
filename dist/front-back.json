@@ -82,7 +82,7 @@
         "working_hours": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/WorkingHour"
+            "$ref": "#/definitions/WorkingHours"
           }
         }
       }
@@ -135,14 +135,25 @@
         }
       }
     },
+    "WorkingHours": {
+      "type": "object",
+      "properties":
+      {
+        "1":
+        {
+          "$ref": "#/definitions/WorkingHour"
+        }
+      }
+    },
     "WorkingHour": {
       "type": "object",
-      "required": [
-        "present",
-        "start",
-        "end"
-      ],
-      "properties": {
+      "properties":
+      {
+        "required": [
+          "present",
+          "start",
+          "end"
+        ],
         "present": {
           "type": "boolean"
         },
