@@ -1,0 +1,160 @@
+{
+  "info": {
+    "title": "Frontend - Backend",
+    "version": "0.0.1"
+  },
+  "swagger": "2.0",
+  "produces": [
+    "application/xml",
+    "application/json"
+  ],
+  "host": "192.168.6.25:3000",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Operations about Users"
+    },
+    {
+      "name": "Agents",
+      "description": "Operations about Agents"
+    }
+  ],
+  "paths": {
+    "/administration/users/{user_id}/roles/new": {
+      "get": {
+        "summary": "Sets up roles and working hours",
+        "description": "Sets up roles and working hours",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "Id of user",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "project_id",
+            "description": "Id of role",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent role/working hours data",
+            "schema": {
+              "$ref": "#/definitions/AgentRolesHours"
+            }
+          }
+        },
+        "tags": [
+          "Users",
+          "Agents"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AgentRolesHours": {
+      "type": "object",
+      "required": [
+        "projects",
+        "roles",
+        "working_hours"
+      ],
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Project"
+          }
+        },
+        "roles": {
+          "type": "object",
+          "properties": {
+            "1": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        },
+        "working_hours": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WorkingHour"
+          }
+        }
+      }
+    },
+    "Project": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "logo_url",
+        "agents_count",
+        "currency"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo_url": {
+          "type": "string"
+        },
+        "agents_count": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "Role": {
+      "type": "object",
+      "required": [
+        "team_id",
+        "agent",
+        "manager"
+      ],
+      "properties": {
+        "team_id": {
+          "type": "object",
+          "example": 1
+        },
+        "agent": {
+          "type": "boolean"
+        },
+        "manager": {
+          "type": "boolean"
+        }
+      }
+    },
+    "WorkingHour": {
+      "type": "object",
+      "required": [
+        "present",
+        "start",
+        "end"
+      ],
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "start": {
+          "type": "string",
+          "example": "08:00"
+        },
+        "end": {
+          "type": "string",
+          "example": "08:00"
+        }
+      }
+    }
+  }
+}
